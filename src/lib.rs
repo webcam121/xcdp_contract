@@ -179,7 +179,7 @@ impl L1XStandardCrossChainSwap {
                 l1x_sdk::storage_write(STORAGE_CONTRACT_KEY, &encoded_contract);
                 log::info!("Saved event data successfully");
             }
-            Err(_) => panic!("Unable to save contract"),
+            Err(_) => panic!("Unable to save contract. Please try again"),
         };
     }
 
