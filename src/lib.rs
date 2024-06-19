@@ -174,8 +174,11 @@ impl L1XStandardCrossChainSwap {
 
     /// Save contract to storage
     fn save(&mut self) {
+        // Try to serialize the contract to a vector of bytes using Borsh serialization
         match borsh::BorshSerialize::try_to_vec(self) {
+            // If serialization is successful, proceed to write the bytes to storage
             Ok(encoded_contract) => {
+                // Write the serialized contract bytes to storage using the predefined key
                 l1x_sdk::storage_write(STORAGE_CONTRACT_KEY, &encoded_contract);
                 log::info!("Saved event data successfully");
             }
