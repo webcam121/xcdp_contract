@@ -155,13 +155,17 @@ impl Default for L1XStandardCrossChainSwap {
 impl L1XStandardCrossChainSwap {
     /// Generate contract based on bytes in storage
     fn load() -> Self {
+        // Read the contract bytes from storage using a predefined key
         match l1x_sdk::storage_read(STORAGE_CONTRACT_KEY) {
+            // If storage contains some bytes, attempt to deserialize them
             Some(bytes) => match Self::try_from_slice(&bytes) {
+                // If deserialization is successful, return the contract
                 Ok(contract) => contract,
                 Err(_) => {
                     panic!("Unable to parse contract bytes")
                 }
             },
+            // If no bytes are found in storage, panic with an initialization error message
             None => {
                 panic!("The contract isn't initialized")
             }
